@@ -96,24 +96,14 @@ class PaginationView {
     }
     
     public function viewPaginationList($pageNumber = 1) {
-        $totalNewsCount = 0;
-        if (isset($_SESSION['totalNewsCount'])) {
+        $dbh =$this->pdoConnect->Connect(); 
 
-            $totalNewsCount = $_SESSION['totalNewsCount'];
+        $sql = "SELECT id FROM `news` GROUP BY id desc LIMIT 1";                       
+        $stmt = $dbh->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $stmt->execute();         
+        $row = $stmt->fetch();
+        $totalNewsCount = $row['id'];
             
-        }  else {
-            
-            $dbh =$this->pdoConnect->Connect(); // get connection to DataBase
-            
-            $sql = "SELECT count(*) FROM `news` ";                       
-            $stmt = $dbh->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-            $stmt->execute();
-                 
-            $row = $stmt->fetch();
-            $_SESSION['totalNewsCount'] = $row['count(*)'];
-            $totalNewsCount = $row['count(*)'];
-            
-        }
          
         $this->viewList($pageNumber);
         $this->viewPagination($pageNumber,$totalNewsCount);
