@@ -6,7 +6,6 @@
     </head>
     <body>
         <?php
-        session_start();
         include_once './PaginationView.php';
         
         $pageNumber = 0;
