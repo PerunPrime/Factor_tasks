@@ -46,7 +46,7 @@ class PaginationView {
     }
     private function drawArrowRight($pageNumber,$amountOfPages,$totalNewsCount) {
         
-        if ($pageNumber < ceil ($totalNewsCount / $amountOfPages) -6) {
+        if ($pageNumber < ceil ($totalNewsCount / $amountOfPages) -5) {
             echo '<a href="http://localhost/Factor_task_3/index.php?page='.($pageNumber+6).'"';
             echo 'style="color: #0f81dc;"';
             echo '> > </a>';
